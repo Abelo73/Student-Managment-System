@@ -1,0 +1,571 @@
+{
+  "info": {
+    "name": "Student Management System",
+    "_postman_id": "3b036804-cad3-469d-91e2-118e359663c9",
+    "description": "Postman collection for testing the Student Management System backend APIs.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Register Admin",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"firstName\": \"Admin\", \"lastName\": \"User\", \"email\": \"admin@example.com\", \"password\": \"admin123\", \"role\": \"ADMIN\"}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/auth/register",
+          "host": ["{{baseUrl}}"],
+          "path": ["auth", "register"]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Response contains success message', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.be.a('string');",
+              "    pm.expect(jsonData).to.include('successfully');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Login Admin",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"email\": \"admin@example.com\", \"password\": \"admin123\"}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/auth/login",
+          "host": ["{{baseUrl}}"],
+          "path": ["auth", "login"]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Response contains JWT token', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.token).to.be.a('string');",
+              "    pm.environment.set('adminToken', jsonData.token);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Register Student",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"firstName\": \"John\", \"lastName\": \"Doe\", \"email\": \"john.doe@student.edu\", \"password\": \"student123\", \"role\": \"STUDENT\"}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/auth/register",
+          "host": ["{{baseUrl}}"],
+          "path": ["auth", "register"]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Response contains success message', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.be.a('string');",
+              "    pm.expect(jsonData).to.include('successfully');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Create User by Admin",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{adminToken}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"firstName\": \"Jane\", \"lastName\": \"Smith\", \"email\": \"jane.smith@student.edu\", \"role\": \"STUDENT\", \"phone\": \"+1 (555) 345-6789\", \"gpa\": 3.9, \"status\": \"ACTIVE\"}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/user/admin/create",
+          "host": ["{{baseUrl}}"],
+          "path": ["user", "admin", "create"]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Response contains success message', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.be.a('string');",
+              "    pm.expect(jsonData).to.include('successfully');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Login Student",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"email\": \"john.doe@student.edu\", \"password\": \"student123\"}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/auth/login",
+          "host": ["{{baseUrl}}"],
+          "path": ["auth", "login"]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Response contains JWT token', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.token).to.be.a('string');",
+              "    pm.environment.set('studentToken', jsonData.token);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Create Course",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{adminToken}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\": \"Advanced Mathematics\", \"description\": \"Advanced calculus course\", \"instructor\": \"Dr. Smith\", \"maxEnrollment\": 30, \"status\": \"ACTIVE\"}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/course",
+          "host": ["{{baseUrl}}"],
+          "path": ["course"]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Response contains success message', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.be.a('string');",
+              "    pm.expect(jsonData).to.include('successfully');",
+              "});",
+              "pm.test('Course ID is stored', function () {",
+              "    pm.environment.set('courseId', '1');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Enroll Student",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"courseId\": {{courseId}}}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/course/enroll",
+          "host": ["{{baseUrl}}"],
+          "path": ["course", "enroll"]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Response contains success message', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.be.a('string');",
+              "    pm.expect(jsonData).to.include('successfully');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Get Students",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{adminToken}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/user/students?page=0&size=2&search=Jane&status=ACTIVE&minGpa=3.5&maxGpa=4.0&courseId={{courseId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["user", "students"],
+          "query": [
+            {
+              "key": "page",
+              "value": "0"
+            },
+            {
+              "key": "size",
+              "value": "2"
+            },
+            {
+              "key": "search",
+              "value": "Jane"
+            },
+            {
+              "key": "status",
+              "value": "ACTIVE"
+            },
+            {
+              "key": "minGpa",
+              "value": "3.5"
+            },
+            {
+              "key": "maxGpa",
+              "value": "4.0"
+            },
+            {
+              "key": "courseId",
+              "value": "{{courseId}}"
+            }
+          ]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Response contains students list', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.students).to.be.an('array');",
+              "    pm.expect(jsonData.currentPage).to.eql(0);",
+              "    pm.expect(jsonData.totalItems).to.be.a('number');",
+              "    pm.expect(jsonData.totalPages).to.be.a('number');",
+              "});",
+              "pm.test('Students have correct fields', function () {",
+              "    var jsonData = pm.response.json();",
+              "    if (jsonData.students.length > 0) {",
+              "        var student = jsonData.students[0];",
+              "        pm.expect(student.id).to.be.a('number');",
+              "        pm.expect(student.role).to.eql('STUDENT');",
+              "        pm.expect(student.gpa).to.be.a('number');",
+              "    }",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Get Student by ID",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{adminToken}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/user/students/{{studentId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["user", "students", "{{studentId}}"]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Response contains student details', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.id).to.eql(pm.environment.get('studentId') * 1);",
+              "    pm.expect(jsonData.role).to.eql('STUDENT');",
+              "    pm.expect(jsonData.firstName).to.be.a('string');",
+              "    pm.expect(jsonData.lastName).to.be.a('string');",
+              "    pm.expect(jsonData.email).to.be.a('string');",
+              "    pm.expect(jsonData.courses).to.be.an('array');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Get Stats",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{adminToken}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/user/stats",
+          "host": ["{{baseUrl}}"],
+          "path": ["user", "stats"]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Response contains stats', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.totalStudents).to.be.a('number');",
+              "    pm.expect(jsonData.activeCourses).to.be.a('number');",
+              "    pm.expect(jsonData.avgPerformance).to.be.a('number');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Update Profile",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"firstName\": \"John\", \"lastName\": \"Doe\", \"phone\": \"+1 (555) 123-4567\", \"password\": \"newpassword123\"}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/user/profile",
+          "host": ["{{baseUrl}}"],
+          "path": ["user", "profile"]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Response contains success message', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.be.a('string');",
+              "    pm.expect(jsonData).to.include('successfully');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Get Profile",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/user/profile",
+          "host": ["{{baseUrl}}"],
+          "path": ["user", "profile"]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Response contains profile details', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.id).to.be.a('number');",
+              "    pm.expect(jsonData.email).to.be.a('string');",
+              "    pm.expect(jsonData.role).to.be.a('string');",
+              "    pm.expect(jsonData.courses).to.be.an('array');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Logout",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/auth/logout",
+          "host": ["{{baseUrl}}"],
+          "path": ["auth", "logout"]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.environment.unset('adminToken');",
+              "pm.environment.unset('studentToken');",
+              "pm.environment.unset('courseId');",
+              "pm.environment.unset('studentId');"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
