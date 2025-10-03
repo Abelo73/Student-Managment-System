@@ -360,9 +360,15 @@ student-management-system/
 
 - Add sorting to `/api/user/students` (e.g., by `gpa`, `firstName`).
 - Implement update/delete student endpoints (admin-only).
-- Develop a frontend UI (React/Angular).
+- Develop a frontend UI (React/Angular). also i have developed ui in react if you want check my github
 - Add activity logging for user actions.
 - Enable rate limiting for APIs.
+## Developer Information
+- Abel Adisu | Java Developer | Fullstack Developer
+- 2+ years of experince in Fullstack Development Spring boot and React with latest Technology
+- abeladisu73@gmail.com
+- (+251) 934777483
+- Ethiopia, Addis Abeba
 
 ## License
 
