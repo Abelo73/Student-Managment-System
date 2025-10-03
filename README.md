@@ -2,46 +2,59 @@
 
 ## Overview
 
-The Student Management System is a Spring Boot-based backend application for managing users, students, courses, and enrollments. It provides RESTful APIs for user authentication, profile management, student creation, student listing with pagination and filtering, individual student details retrieval, and system statistics. The application uses JWT for authentication and PostgreSQL for persistent storage.
+The Student Management System is a Spring Boot-based backend application for managing users, students, courses, and enrollments. It provides RESTful APIs for user authentication, profile management, student creation, student listing with pagination and filtering, individual student details retrieval, and system statistics. The application uses JWT for authentication and PostgreSQL for persistent storage. A React-based frontend is also available in the same repository for a complete full-stack experience.
+
+## About Me
+
+- **Name**: Abel Adisu
+- **Role**: Java Developer | Fullstack Developer
+- **Experience**: 2+ years in Fullstack Development using Spring Boot and React with modern technologies
+- **Email**: abeladisu73@gmail.com
+- **Phone**: (+251) 934777483
+- **Location**: Addis Ababa, Ethiopia
+- **GitHub**: [Abelo73](https://github.com/Abelo73)
+- **Project Repository**: [Student-Managment-System](https://github.com/Abelo73/Student-Managment-System.git)
 
 ## Technology Stack
 
 - **Java**: 17
 - **Spring Boot**: 3.5.6
 - **Spring Data JPA**: For database operations and dynamic queries
-- **PostgreSQL**: Relational database for storing users, courses, and enrollments
+- **PostgreSQL**: Relational database for users, courses, and enrollments
 - **Spring Security**: For JWT-based authentication and authorization
 - **BCrypt**: For password encryption
 - **SLF4J**: For logging
 - **Maven**: Build and dependency management
 - **Postman**: For API testing
-- **Lombok** (optional): For reducing boilerplate code (if used in entities)
+- **Lombok**: For reducing boilerplate code in entities
+- **React**: Frontend UI (available in the repository)
 - **Operating System**: Cross-platform (tested on Windows/Linux via WSL)
 
 ## Prerequisites
 
-To run the application, ensure the following are installed:
+Ensure the following are installed before running the application:
 
 - **Java 17**: [Download JDK 17](https://www.oracle.com/java/technologies/javase-jdk17-downloads.html)
 - **Maven**: [Download Maven](https://maven.apache.org/download.cgi)
 - **PostgreSQL**: [Download PostgreSQL](https://www.postgresql.org/download/) (version 13 or later)
 - **Postman**: [Download Postman](https://www.postman.com/downloads/) for API testing
-- **Git**: [Download Git](https://git-scm.com/downloads) (optional, for cloning)
+- **Git**: [Download Git](https://git-scm.com/downloads) for cloning the repository
+- **Node.js** (for frontend): [Download Node.js](https://nodejs.org/) (version 16 or later)
 
-## Project Setup
+## Downloading and Using the Project
 
 ### 1. Clone the Repository
-Clone the project or copy the files to your local machine:
+Clone the project from GitHub to your local machine:
 
 ```bash
-git clone <repository-url>
-cd student-management-system
+git clone https://github.com/Abelo73/Student-Managment-System.git
+cd Student-Managment-System
 ```
 
-*Note*: Replace `<repository-url>` with the actual repository URL (e.g., GitHub, GitLab). If not hosted, copy the project files to a local directory.
+This downloads both the backend (Spring Boot) and frontend (React) components.
 
 ### 2. Configure PostgreSQL
-1. Start PostgreSQL and ensure it’s running on `localhost:5432`.
+1. Start PostgreSQL and ensure it runs on `localhost:5432`.
 2. Create a database named `postgres`:
    ```bash
    psql -U postgres
@@ -51,9 +64,15 @@ cd student-management-system
 3. Verify credentials:
    - Username: `postgres`
    - Password: `postgres`
-   - Update `application.properties` if different.
+   - Update `application.properties` if using different credentials.
 
-### 3. Configure the Application
+### 3. Configure the Backend
+Navigate to the backend directory (assuming it’s in the root or a subdirectory like `backend`):
+
+```bash
+cd backend  # If the backend is in a subdirectory
+```
+
 Edit `src/main/resources/application.properties` to match your PostgreSQL setup:
 
 ```properties
@@ -66,7 +85,7 @@ jwt.secret=your-secure-secret-key-1234567890
 logging.level.com.act.studentmanagementsystem=DEBUG
 ```
 
-- **jwt.secret**: Use a secure, unique key for JWT signing.
+- **jwt.secret**: Replace with a secure, unique key for JWT signing.
 - **spring.jpa.hibernate.ddl-auto=update**: Updates database schema based on entities.
 - **spring.sql.init.mode=always**: Runs `schema.sql` on startup.
 
@@ -105,8 +124,8 @@ CREATE TABLE IF NOT EXISTS user_courses (
 );
 ```
 
-### 5. Build the Project
-Build the project using Maven:
+### 5. Build the Backend
+Build the backend using Maven:
 
 ```bash
 mvn clean install
@@ -117,14 +136,35 @@ This command:
 - Downloads dependencies (e.g., Spring Boot, PostgreSQL driver).
 - Compiles the project.
 
-### 6. Run the Application
+### 6. Run the Backend
 Start the Spring Boot application:
 
 ```bash
 mvn spring-boot:run
 ```
 
-The application runs on `http://localhost:8080`. Logs will confirm server startup and schema initialization.
+The backend runs on `http://localhost:8080`. Logs will confirm server startup and schema initialization.
+
+### 7. Run the Frontend (Optional)
+If using the React frontend:
+
+1. Navigate to the frontend directory (e.g., `frontend` or `client`):
+   ```bash
+   cd frontend
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the frontend:
+   ```bash
+   npm start
+   ```
+4. Access the frontend at `http://localhost:3000` (default React port).
+5. Ensure the frontend is configured to communicate with the backend at `http://localhost:8080`.
+
+### 8. Test the APIs
+Use Postman to test the backend APIs (see **Testing with Postman** below).
 
 ## API Endpoints
 
@@ -170,7 +210,7 @@ All endpoints are under `/api` and require a JWT token in the `Authorization` he
   - Headers: `Authorization: Bearer <admin-token>`
   - Response: `200 OK` with `{ "totalStudents": number, "activeCourses": number, "avgPerformance": number }`.
 
-### Course APIs (Assumed)
+### Course APIs
 - **POST /api/course**
   - Description: Create a new course (admin-only).
   - Headers: `Authorization: Bearer <admin-token>`
@@ -184,7 +224,7 @@ All endpoints are under `/api` and require a JWT token in the `Authorization` he
 
 ### Setup
 1. **Import Collection and Environment**:
-   - Use the Postman collection (artifact ID: `3b036804-cad3-469d-91e2-118e359663c9`) and environment (artifact ID: `db8d043e-9114-4447-b1bb-d70aa42dc9a8`).
+   - Use the Postman collection (artifact ID: `3b036804-cad3-469d-91e2-118e359663c9`) and environment (artifact ID: `db8d043e-9114-4447-b1bb-d70aa42dc9a8`) from the repository or provided files.
    - In Postman, click **Import** > Upload both files.
    - Select **Student Management System Environment** in the dropdown.
 
@@ -318,39 +358,43 @@ curl -X GET http://localhost:8080/api/user/students/2 \
 ## Project Structure
 
 ```
-student-management-system/
-├── src/
-│   ├── main/
-│   │   ├── java/com/act/studentmanagementsystem/
-│   │   │   ├── controller/
-│   │   │   │   ├── UserController.java
-│   │   │   │   ├── CourseController.java
-│   │   │   │   ├── AuthController.java
-│   │   │   ├── entity/
-│   │   │   │   ├── User.java
-│   │   │   │   ├── Course.java
-│   │   │   │   ├── Role.java
-│   │   │   ├── repository/
-│   │   │   │   ├── UserRepository.java
-│   │   │   │   ├── CourseRepository.java
-│   │   │   ├── service/
-│   │   │   │   ├── JwtUtil.java
-│   │   │   ├── config/
-│   │   │   │   ├── SecurityConfig.java
-│   │   │   ├── StudentManagementSystemApplication.java
-│   │   ├── resources/
-│   │   │   ├── application.properties
-│   │   │   ├── schema.sql
-│   ├── test/
-├── pom.xml
-├── logs/
-│   ├── app.log
+Student-Managment-System/
+├── backend/
+│   ├── src/
+│   │   ├── main/
+│   │   │   ├── java/com/act/studentmanagementsystem/
+│   │   │   │   ├── controller/
+│   │   │   │   │   ├── UserController.java
+│   │   │   │   │   ├── CourseController.java
+│   │   │   │   │   ├── AuthController.java
+│   │   │   │   ├── entity/
+│   │   │   │   │   ├── User.java
+│   │   │   │   │   ├── Course.java
+│   │   │   │   │   ├── Role.java
+│   │   │   │   ├── repository/
+│   │   │   │   │   ├── UserRepository.java
+│   │   │   │   │   ├── CourseRepository.java
+│   │   │   │   ├── service/
+│   │   │   │   │   ├── JwtUtil.java
+│   │   │   │   ├── config/
+│   │   │   │   │   ├── SecurityConfig.java
+│   │   │   │   ├── StudentManagementSystemApplication.java
+│   │   │   ├── resources/
+│   │   │   │   ├── application.properties
+│   │   │   │   ├── schema.sql
+│   │   ├── test/
+│   ├── pom.xml
+│   ├── logs/
+│   │   ├── app.log
+├── frontend/
+│   ├── src/
+│   ├── package.json
 ├── README.md
 ```
 
 ## Contributing
 
-1. Fork the repository.
+1. Fork the repository: [https://github.com/Abelo73/Student-Managment-System.git](https://github.com/Abelo73/Student-Managment-System.git).
 2. Create a feature branch: `git checkout -b feature/new-endpoint`.
 3. Commit changes: `git commit -m "Add new endpoint"`.
 4. Push: `git push origin feature/new-endpoint`.
@@ -360,15 +404,9 @@ student-management-system/
 
 - Add sorting to `/api/user/students` (e.g., by `gpa`, `firstName`).
 - Implement update/delete student endpoints (admin-only).
-- Develop a frontend UI (React/Angular). also i have developed ui in react if you want check my github
+- Enhance the React frontend with additional features.
 - Add activity logging for user actions.
 - Enable rate limiting for APIs.
-## Developer Information
-- Abel Adisu | Java Developer | Fullstack Developer
-- 2+ years of experince in Fullstack Development Spring boot and React with latest Technology
-- abeladisu73@gmail.com
-- (+251) 934777483
-- Ethiopia, Addis Abeba
 
 ## License
 
